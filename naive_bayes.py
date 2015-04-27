@@ -55,37 +55,33 @@ def main(xP, xS, test_data):
                                                    test_data)
 
     xP_prob = calc_bayes_prob(xP_prior_prob,
-                                    likelihood_xP,
-                                    total_attribute_probability)
+                              likelihood_xP,
+                              total_attribute_probability)
 
     xS_prob = calc_bayes_prob(xS_prior_prob,
-                                    likelihood_xS,
-                                    total_attribute_probability)
+                              likelihood_xS,
+                              total_attribute_probability)
 
     if max(xP_prob, xS_prob) == xP_prob:
-        return 'Politics'
+        return "Politics"
     else:
-        return 'Sport'
-
+        return "Sport"
 
 
 def calc_prior_probability(clazz, total_num_instances):
-    '''
-    # Calculates the prior probability for clazz
-    '''
-
+    """
+    Calculates the prior probability for clazz
+    """
     num_instances = len(clazz)
     prior_probability = (num_instances/total_num_instances)
-
     return prior_probability
 
 
 def calc_likelihood(clazz, attribute_counts, test_data):
-    '''
-    # Calculates total likelihood for all attributes in
-    # test data according to attribute_count
-    '''
-
+    """
+    Calculates total likelihood for all attributes in
+    test data according to attribute_count
+    """
     likelihoods = []
     for idx in range(len(test_data)):
         likelihoods.append(attribute_counts[idx][test_data[idx]] / len(clazz))
@@ -94,15 +90,14 @@ def calc_likelihood(clazz, attribute_counts, test_data):
 
 
 def calc_attrib_prob(xP_counts, xS_counts, total_instances, test_data):
-    '''
-    # Calculates total probability for all attributes in test_data.
-    '''
-
+    """
+    Calculates total probability for all attributes in test_data.
+    """
     attribute_probs = []
     for idx in range(len(xP_counts)):
-        attribute_probs.append((xP_counts[idx][test_data[idx]] \
-                                + xS_counts[idx][test_data[idx]]) \
-                                / total_instances)
+        attribute_probs.append((xP_counts[idx][test_data[idx]]
+                                + xS_counts[idx][test_data[idx]])
+                               / total_instances)
 
     return np.prod(attribute_probs)
 
@@ -113,16 +108,15 @@ def calc_bayes_prob(prior_prob, likelihood, total_attrib_prob):
 
 
 def count_values(attribute_vector):
-    '''
-    # Creates an OrderedDict from each attribute vector
-    # in clazz, totaling up the counts for each value
-    # of each attribute in the attribute vector.
+    """
+    Creates an OrderedDict from each attribute vector
+    in clazz, totaling up the counts for each value
+    of each attribute in the attribute vector.
 
-    # p = model_data(xP)
-    # p.[3][1] gives the total count of 1's for the attribute
-        at index 3 of all sets of xP
-    '''
-
+    p = model_data(xP)
+    p.[3][1] gives the total count of 1"s for the attribute
+      at index 3 of all sets of xP
+    """
     # Initialize dict to hold counts for each variable value
     # in each set of attribute_vector.
     counts = OrderedDict.fromkeys([x for x in range(len(attribute_vector[0]))])
@@ -143,5 +137,5 @@ def count_values(attribute_vector):
     return counts
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print main(xP, xS, test_data)
